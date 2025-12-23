@@ -1,7 +1,6 @@
 import requests
 import os
 import json
-import socket
 import time
 
 record = os.environ["RECORD"]
@@ -11,10 +10,7 @@ email = os.environ["EMAIL"]
 key = os.environ["KEY"]
 record_id = os.environ["RECORD_ID"]
 
-s = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
-s.connect(("1.1.1.1", 80))
-ip_addr = s.getsockname()[0]
-s.close()
+ip_addr = str(requests.get("https://ifconfig.me").text)
 
 url = f"https://api.cloudflare.com/client/v4/zones/{zone}/dns_records/{record_id}"
 
